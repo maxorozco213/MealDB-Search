@@ -10,7 +10,8 @@ const _anotherSearchPrompt = () => {
     return inquirer.prompt([
         {
             type: 'confirm',
-            name: 
+            name: 'search',
+            message: 'Would you like to do another search?'
         }
     ]);
 };
