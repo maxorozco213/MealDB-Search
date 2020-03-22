@@ -1,21 +1,23 @@
 {
-  "name": "ticketmaster-search-cli",
+  "name": "mealdb-search",
   "version": "1.0.0",
-  "description": "Search and fetch data from Ticketmaster API",
-  "main": "index.js",
+  "description": "Search the MealDB API",
+  "main": "app.js",
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maxorozco213/Ticketmaster-Search-CLI.git"
+    "url": "git+https://github.com/maxorozco213/MealDB-Search-CLI.git"
   },
-  "author": "Maximilian Orozco <maxorozco213@gmail.com>",
+  "author": "Maximilian Orozco",
   "license": "ISC",
-  "homepage": "https://github.com/maxorozco213/Ticketmaster-Search-CLI#readme",
+  "bugs": {
+    "url": "https://github.com/maxorozco213/MealDB-Search-CLI/issues"
+  },
+  "homepage": "https://github.com/maxorozco213/MealDB-Search-CLI#readme",
   "dependencies": {
-    "inquirer": "^7.1.0",
-    "superagent": "^5.2.2",
-    "yargs": "^15.3.0"
+    "superagent": "^5.2.2"
   }
 }

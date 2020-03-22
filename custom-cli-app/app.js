@@ -1,4 +1,3 @@
-
 const inquirer = require('inquirer');
 
 const _print = result => {
