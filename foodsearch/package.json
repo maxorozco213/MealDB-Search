@@ -1,0 +1,23 @@
+{
+  "name": "mealdb-search",
+  "version": "1.0.0",
+  "description": "Search the MealDB API",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxorozco213/MealDB-Search-CLI.git"
+  },
+  "author": "Maximilian Orozco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxorozco213/MealDB-Search-CLI/issues"
+  },
+  "homepage": "https://github.com/maxorozco213/MealDB-Search-CLI#readme",
+  "dependencies": {
+    "superagent": "^5.2.2"
+  }
+}
