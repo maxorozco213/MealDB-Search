@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "inquirer": "^7.1.0",
+    "foodsearch": "file:../foodsearch",
     "yargs": "^15.3.1"
   },
   "devDependencies": {},
