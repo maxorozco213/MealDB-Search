@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const foodSearch = require('foodsearch')
 
 const _print = result => {
     console.log(`ID                   Name`)
@@ -20,7 +21,10 @@ const _anotherSearchPrompt = () => {
     ]);
 };
 
+async function searchFoods() {
+
+}
+
 module.exports = {
-    _anotherSearchPrompt,
-    _print
+    searchFoods
 }

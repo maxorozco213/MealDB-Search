@@ -1,5 +1,5 @@
 {
-  "name": "mealdb-search",
+  "name": "foodsearch",
   "version": "1.0.0",
   "description": "Search the MealDB API",
   "main": "app.js",

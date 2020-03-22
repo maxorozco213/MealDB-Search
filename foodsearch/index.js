@@ -1,6 +1,5 @@
 const superagent = require('superagent');
 const config = require('./config.json');
-const app = require('../custom-cli-app');
 
 async function searchCategories() {
     const searchURL = `${config.baseURL}/categories.php`;
