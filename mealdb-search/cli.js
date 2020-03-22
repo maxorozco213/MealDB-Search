@@ -18,7 +18,7 @@ yargs
         // Calls the function in app.js to perform some tasks
         // Function takes the options as perameters
         handler: argv => {
-            app.searchFoods(argv.description);
+            app.searchFoodCategories(argv.description);
         }
     })
     .command({

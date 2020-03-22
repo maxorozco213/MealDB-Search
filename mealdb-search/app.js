@@ -2,21 +2,27 @@ const inquirer = require('inquirer');
 const foodSearch = require('foodsearch')
 
 const _printCategories = (result, isDescriptionIncluded) => {
-    if(isDescriptionIncluded) {
+    if (isDescriptionIncluded) {
+        result.categories.forEach(element => {
+            console.log(`ID: ${element.idCategory}`);
+            console.log(`Name: ${element.strCategory}\n`)
+            console.log(`Description:\n${element.strCategoryDescription}\n`)
+        });
 
     } else {
-        console.log(`ID                   Name`)
-        console.log("-----------------------------------------")
-    
         result.categories.forEach(element => {
-            console.log(`${element.idCategory}                    ${element.strCategory}`);
+            console.log(`ID: ${element.idCategory}`);
+            console.log(`Name: ${element.strCategory}\n`);
         });
-    
     }
 };
 
+const _printMealsInCategory = (result, isDescriptionIncluded) => {
+    
+}
+
 const _printMeals = (result, isDescriptionIncluded) => {
-    if(isDescriptionIncluded) {
+    if (isDescriptionIncluded) {
         result.meals.forEach(meal => {
             console.log(`ID: ${meal.idMeal}`)
             console.log(`Name: ${meal.strMeal}`)
@@ -31,6 +37,7 @@ const _printMeals = (result, isDescriptionIncluded) => {
             console.log(`Name: ${meal.strMeal}`)
             console.log(`Youtube Tutorial: ${meal.strYoutube}`)
         })
+
     }
 }
 
@@ -73,19 +80,19 @@ async function _searchMealDetailsPrompt() {
 }
 
 // Default action - Gets all the food categories and their ID numbers
-async function searchFoods() {
+async function searchFoodCategories(isDescriptionIncluded = flase) {
     const searchRequest = await foodSearch.searchAllCategories();
 
-    _printCategories(searchRequest);
+    _printCategories(searchRequest, isDescriptionIncluded);
 
-    _searchCategoryPrompt();
+    // _searchCategoryPrompt();
 }
 
 // Search the meals that are available in a category chosen by the user
 async function searchCategory(categoryName = null, isDescriptionIncluded = false) {
 
     try {
-        if(!categoryName) {
+        if (!categoryName) {
             _searchCategoryPrompt();
         } else {
             const searchRequest = await foodSearch.searchByCategory();
@@ -116,13 +123,14 @@ async function searchMeal(mealId = null, mealName = null, isDescriptionIncluded 
         } else {
             console.log("Meal ID or meal name required");
         }
+
     } catch (error) {
         console.log("searchMeal:: ", error)
     }
 }
 
 module.exports = {
-    searchFoods,
+    searchFoodCategories,
     searchMeal,
     searchCategory
 }
