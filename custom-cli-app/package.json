@@ -12,9 +12,6 @@
   },
   "author": "Maximilian Orozco <maxorozco213@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/maxorozco213/Ticketmaster-Search-CLI/issues"
-  },
   "homepage": "https://github.com/maxorozco213/Ticketmaster-Search-CLI#readme",
   "dependencies": {
     "inquirer": "^7.1.0",
