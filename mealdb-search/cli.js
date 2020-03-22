@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const app = require('../custom-module/index.js');
+const app = require('./app');
 
 // Defines the commands that are accepted through the terminal
 yargs
@@ -7,9 +7,17 @@ yargs
     .command({
         command: 'search',
         desc: "Search the MealDB API",
-        // Puts the command together with some options
+        // Puts the command together with some options and secondary commands
         builder: yargs => {
             return yargs
+                .command({
+                    command: 'meal',
+                    desc: "Search the DB for a meal",
+                    handler: argv => {
+                        app.searchFoods(argv)
+                    }
+
+                })
                 .option('i', {
                     alias: 'identification',
                     describe: "Search for all meal categories"
@@ -22,7 +30,7 @@ yargs
         // Calls the function in app.js to perform some tasks
         // Function takes the options as perameters
         handler: argv => {
-            app.searchCategories(argv.identification);
+            app.searchFoods("search");
         }
     })
     .command({

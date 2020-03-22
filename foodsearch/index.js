@@ -6,8 +6,8 @@ async function searchCategories() {
     
     try {
         const searchResponse = await superagent.get(searchURL);
-        app._print(searchResponse.body);
-
+        return searchResponse.body
+        
     } catch (error) {
         console.log(error);
         return error;

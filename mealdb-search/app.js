@@ -22,7 +22,9 @@ const _anotherSearchPrompt = () => {
 };
 
 async function searchFoods() {
+    const searchRequest = await foodSearch.searchCategories();
 
+    _print(searchRequest);
 }
 
 module.exports = {
