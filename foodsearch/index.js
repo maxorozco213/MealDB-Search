@@ -1,7 +1,7 @@
 const superagent = require('superagent');
 const config = require('./config.json');
 
-async function searchCategories() {
+async function searchAllCategories() {
     const searchURL = `${config.baseURL}/categories.php`;
     
     try {
@@ -28,14 +28,21 @@ async function searchByCategory(category) {
     }
 }
 
-async function searchFoodById(id) {
-    let searchURL = `${config.baseURL}/lookup.php?i=`
+async function searchFoodDetails(id, name) {
+    let searchURL = `${config.baseURL}/lookup.php?i=`;
+    let searchResponse = ''
 
     try {
-        searchURL += `${id}`
-        const searchResponse = await superagent.get(searchURL)
-        return searchResponse.body;
+        if(id || (id && name)) {
+            searchURL += `${id}`
+            searchResponse = await superagent.get(searchURL)
+            
+        } else {
+            searchURL += `${name}`
+            searchResponse = await superagent.get(searchURL)
+        }
 
+        return searchResponse.body;
     } catch (error) {
         console.log(error);
         return error;
@@ -44,7 +51,7 @@ async function searchFoodById(id) {
 
 // Exporting things in ES6 syntax
 module.exports = {
-    searchCategories,
+    searchAllCategories,
     searchByCategory,
-    searchFoodById
+    searchFoodDetails
 }
