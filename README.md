@@ -1,7 +1,7 @@
 # MealDB-Search-CLI
 Midterm project for CS4220 - Spring 2020
 
-[![MealDB Logo](mealdb.png)](https://themealdb.com/api.php "The MealDB API")
+<a title="The MealDB API" href="https://themealdb.com/api.php" target="_blank">![MealDB Logo](mealdb.png)</a>
 
 ## Description
 
