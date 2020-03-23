@@ -158,7 +158,6 @@ async function searchMeal(mealId = null, mealName = null, isDescriptionIncluded 
 }
 
 async function searchByArea(area = null) {
-    console.log(area)
     try {
         if (area !== null) {
             const searchRequest = await foodSearch.searchMealsByArea(area);
