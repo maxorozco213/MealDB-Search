@@ -18,6 +18,6 @@ Usage: `node cli.js <cmd> [options]`
 
 ## Available options
 
- - i (identification)
- - n (name)
- - d (description)
+ - `i` (identification)
+ - `n` (name)
+ - `d` (description)
