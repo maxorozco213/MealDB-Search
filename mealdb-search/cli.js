@@ -5,7 +5,7 @@ const app = require('./app');
 yargs
     .usage('$0: Usage <cmd> [options]')
     .command({
-        command: 'search',
+        command: 'all',
         desc: "Search the MealDB API for food categories [-d]",
         // Puts the command together with some options and secondary commands
         builder: yargs => {
