@@ -7,9 +7,9 @@ const foodSearch = require('foodsearch')
 const _printCategories = (result, isDescriptionIncluded) => {
     if (isDescriptionIncluded) {
         result.categories.forEach(element => {
-            console.log(clc.cyanBright(`ID: ${element.idCategory}`));
-            console.log(`Name: ${element.strCategory}\n`)
-            console.log(`Description:\n${element.strCategoryDescription}\n`)
+            console.log(clc.cyan(`ID: ${element.idCategory}`));
+            console.log(clc.magenta(`Name: ${element.strCategory}\n`))
+            console.log(clc.green(`Description: `) + `\n${element.strCategoryDescription}\n`)
         });
 
     } else {
