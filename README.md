@@ -12,8 +12,10 @@ To start use `git clone` then `npm install` in both */mealdb-search* and */foods
 ## Available commands 
 
 Usage: `node cli.js <cmd> [options]`
- - `all` - Get all the available food categories
- - `category` - Search for a category by name **[-n]**
+ - `search` - Get all the available food categories
+   - `ingredient` - Get all the available meals with a given ingredient
+   - `area` - Get all available meals that originate from a given country
+ - `category` - Search for a category by name
  - `meal` - Search for a meal by ID **[-i]** or by name **[-n]**
 
 ## Available options

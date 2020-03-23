@@ -1,59 +1,76 @@
 // Pre-made modules
 const inquirer = require('inquirer');
 const clc = require('cli-color');
+const column = require('columnify');
 // Custom module
 const foodSearch = require('foodsearch')
 
 const _printCategories = (result, isDescriptionIncluded) => {
     if (isDescriptionIncluded) {
+        process.stdout.write(clc.columns([
+            [clc.bold("First Name"), clc.bold("Last Name")]
+        ]));
         result.categories.forEach(element => {
             console.log(clc.cyan(`ID: ${element.idCategory}`));
-            console.log(clc.magenta(`Name: ${element.strCategory}\n`))
+            console.log(clc.cyan(`Name: ${element.strCategory}`))
             console.log(clc.green(`Description: `) + `\n${element.strCategoryDescription}\n`)
         });
 
     } else {
+        let data = {};
+
         result.categories.forEach(element => {
-            console.log(`ID: ${element.idCategory}`);
-            console.log(`Name: ${element.strCategory}\n`);
-        });
+            data[clc.cyan(element.idCategory)] = clc.green(element.strCategory)
+        })
+
+        console.log(column(data, {columns: ["ID", "Name"]}));
     }
 };
 
-const _printMealsInCategory = (result, isDescriptionIncluded) => {
-    if (!isDescriptionIncluded) {
-        result.meals.forEach(meal => {
-            console.log(`ID: ${meal.idMeal}`);
-            console.log(`Name: ${meal.strMeal}\n`);
-        })
+const _printMealsInCategory = (result) => {
+    
+    let data = {};
 
-    } else {
-        result.meals.forEach(async function(meal) {
-            console.log(`ID: ${meal.idMeal}`);
-            console.log(`Name: ${meal.strMeal}\n`);
-            console.log(await termImg.buffer(meal.strMealThumb));
-        })
-    }
+    result.meals.forEach(element => {
+        data[clc.cyan(element.idMeal)] = clc.green(element.strMeal)
+    })
+
+    console.log(column(data, {columns: ["ID", "Name"]}));
+
 }
 
 const _printMeals = (result, isDescriptionIncluded) => {
     if (isDescriptionIncluded) {
         result.meals.forEach(meal => {
-            console.log(`ID: ${meal.idMeal}`)
-            console.log(`Name: ${meal.strMeal}`)
-            console.log(`Origin: ${meal.strArea}`)
-            console.log(`Youtube Tutorial: ${meal.strYoutube}\n`)
-            console.log(`Cooking instructions: \n${meal.strInstructions}`)
+            console.log(clc.cyan(`ID: ${meal.idMeal}`));
+            console.log(clc.cyan(`Name: ${meal.strMeal}`));
+            console.log(clc.cyan(`Origin: ${meal.strArea}`));
+            if (meal.strYoutube) {
+                console.log(clc.green(`Youtube Tutorial: ${meal.strYoutube}\n`));
+            } else {
+                console.log(clc.green(`Youtube Tutorial: None\n`));
+            }
+            console.log(clc.magentaBright(`Cooking instructions:`) + `\n${meal.strInstructions}`);
         })
         
     } else {
-        result.meals.forEach(meal => {
-            console.log(`ID: ${meal.idMeal}`)
-            console.log(`Name: ${meal.strMeal}`)
-            console.log(`Youtube Tutorial: ${meal.strYoutube}`)
+        let data = {};
+        result.categories.forEach(element => {
+            data[clc.cyan(element.idCategory)] = clc.green(element.strCategory)
         })
 
+        console.log(column(data, {columns: ["ID", "Name"]}));
     }
+}
+
+const _printMealsByType = (result, type) => {
+    let data = {};
+    result.meals.forEach(element => {
+        data[clc.cyan(element.idMeal)] = clc.green(element.strMeal)
+    })
+
+    console.log(clc.bold(`All ${type} food`))
+    console.log(column(data, {columns: ["ID", "Name"]}));
 }
 
 // Prompt the user to search a category
@@ -62,7 +79,7 @@ async function _searchCategoryPrompt() {
         {
             type: 'input',
             name: 'searchCategory',
-            message: "Which category do you want to search? (Enter 'n' to cancel)"
+            message: "Which category (Name) do you want to search? (Enter 'n' to cancel)"
         }
     ])
         .then(answer => {
@@ -81,14 +98,14 @@ async function _searchMealDetailsPrompt() {
         {
             type: 'input',
             name: 'searchMeal',
-            message: "Which meal do you want to search? (Enter 'n' to cancel)"
+            message: "Which meal (ID) do you want to search? (Enter 'n' to cancel)"
         }
     ])
         .then(answer => {
             if (answer.searchMeal === "n") {
                 return 0;
             } else {
-                searchMeal(answer.searchMeal);
+                searchMeal(answer.searchMeal, null, true);
             }
         })
         .catch(error => console.log(error))
@@ -100,13 +117,14 @@ async function searchFoodCategories(isDescriptionIncluded = false) {
 
     _printCategories(searchRequest, isDescriptionIncluded);
 
-    // _searchCategoryPrompt();
+    _searchCategoryPrompt();
 }
 
 // Search the meals that are available in a category chosen by the user
 async function searchCategory(categoryName = null, isDescriptionIncluded = false) {
+    console.log(categoryName);
     try {
-        if (!categoryName) {
+        if (!categoryName || categoryName.length === 0) {
             _searchCategoryPrompt();
         } else {
             const searchRequest = await foodSearch.searchByCategory(categoryName);
@@ -121,15 +139,13 @@ async function searchCategory(categoryName = null, isDescriptionIncluded = false
 
 // Search a specific meal that is specified by the user
 async function searchMeal(mealId = null, mealName = null, isDescriptionIncluded = false) {
-    let searchRequest = '';
-
     try {
         if (mealId || mealId && mealName) {
-            searchRequest = await foodSearch.searchFoodDetails(mealId);
+            const searchRequest = await foodSearch.searchFoodDetails(mealId);
             _printMeals(searchRequest, isDescriptionIncluded);
 
         } else if (!mealId || mealName) {
-            searchRequest = await foodSearch.searchFoodDetails(mealName);
+            const searchRequest = await foodSearch.searchFoodDetails(mealName);
             _printMeals(searchRequest, isDescriptionIncluded);
 
         } else {
@@ -141,8 +157,40 @@ async function searchMeal(mealId = null, mealName = null, isDescriptionIncluded 
     }
 }
 
+async function searchByArea(area = null) {
+    console.log(area)
+    try {
+        if (area !== null) {
+            const searchRequest = await foodSearch.searchMealsByArea(area);
+            _printMealsByType(searchRequest, area);
+
+        } else {
+            console.log("Country of origin is required.");
+        }
+
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+async function searchByIngredient(ingredient = null) {
+    try {
+        if (ingredient !== null) {
+            const searchRequest = await foodSearch.searchMealsByIngredient(ingredient);
+            _printMealsByType(searchRequest, ingredient);
+        } else {
+            console.log("Please enter the main ingredient.");
+        }
+
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     searchFoodCategories,
     searchMeal,
-    searchCategory
+    searchCategory,
+    searchByIngredient,
+    searchByArea
 }
