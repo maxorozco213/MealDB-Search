@@ -1,39 +1,42 @@
 // Pre-made modules
 const inquirer = require('inquirer');
 const clc = require('cli-color');
+const column = require('columnify');
 // Custom module
 const foodSearch = require('foodsearch')
 
 const _printCategories = (result, isDescriptionIncluded) => {
     if (isDescriptionIncluded) {
+        process.stdout.write(clc.columns([
+            [clc.bold("First Name"), clc.bold("Last Name")]
+        ]));
         result.categories.forEach(element => {
             console.log(clc.cyan(`ID: ${element.idCategory}`));
-            console.log(clc.cyan(`Name: ${element.strCategory}\n`))
+            console.log(clc.cyan(`Name: ${element.strCategory}`))
             console.log(clc.green(`Description: `) + `\n${element.strCategoryDescription}\n`)
         });
 
     } else {
+        let data = {};
+
         result.categories.forEach(element => {
-            console.log(clc.cyan(`ID: ${element.idCategory}`));
-            console.log(clc.green(`Name: ${element.strCategory}`));
-        });
+            data[clc.cyan(element.idCategory)] = clc.green(element.strCategory)
+        })
+
+        console.log(column(data, {columns: ["ID", "Name"]}));
     }
 };
 
-const _printMealsInCategory = (result, isDescriptionIncluded) => {
-    if (!isDescriptionIncluded) {
-        result.meals.forEach(meal => {
-            console.log(clc.cyan(`ID: ${meal.idMeal}`));
-            console.log(clc.green(`Name: ${meal.strMeal}`));
-        })
+const _printMealsInCategory = (result) => {
+    
+    let data = {};
 
-    } else {
-        result.meals.forEach(async function(meal) {
-            console.log(clc.cyan(`ID: ${meal.idMeal}`));
-            console.log(clc.green(`Name: ${meal.strMeal}`));
-            console.log(await termImg.buffer(meal.strMealThumb));
-        })
-    }
+    result.meals.forEach(element => {
+        data[clc.cyan(element.idMeal)] = clc.green(element.strMeal)
+    })
+
+    console.log(column(data, {columns: ["ID", "Name"]}));
+
 }
 
 const _printMeals = (result, isDescriptionIncluded) => {
@@ -42,25 +45,35 @@ const _printMeals = (result, isDescriptionIncluded) => {
             console.log(clc.cyan(`ID: ${meal.idMeal}`));
             console.log(clc.cyan(`Name: ${meal.strMeal}`));
             console.log(clc.cyan(`Origin: ${meal.strArea}`));
-            console.log(clc.green(`Youtube Tutorial: ${meal.strYoutube}\n`));
-            console.log(clc.green(`Cooking instructions: \n${meal.strInstructions}`));
+            if (meal.strYoutube) {
+                console.log(clc.green(`Youtube Tutorial: ${meal.strYoutube}\n`));
+            } else {
+                console.log(clc.green(`Youtube Tutorial: None\n`));
+            }
+            console.log(clc.magentaBright(`Cooking instructions:`) + `\n${meal.strInstructions}`);
         })
         
     } else {
-        result.meals.forEach(meal => {
-            console.log(clc.cyan(`ID: ${meal.idMeal}`));
-            console.log(clc.cyan(`Name: ${meal.strMeal}`));
-            console.log(clc.green(`Youtube Tutorial: ${meal.strYoutube}`));
+        let data = {};
+
+        result.categories.forEach(element => {
+            data[clc.cyan(element.idCategory)] = clc.green(element.strCategory)
         })
+
+        console.log(column(data, {columns: ["ID", "Name"]}));
 
     }
 }
 
-const _printMealsByType = result => {
-    console.log(result.meals);
-    // result.forEach(meal => {
-    //     console.log(meal);
-    // })
+const _printMealsByType = (result, areaName) => {
+    let data = {};
+
+        result.meals.forEach(element => {
+            data[clc.cyan(element.idMeal)] = clc.green(element.strMeal)
+        })
+
+        console.log(clc.bold(`All ${areaName} food`))
+        console.log(column(data, {columns: ["ID", "Name"]}));
 }
 
 // Prompt the user to search a category
@@ -146,10 +159,15 @@ async function searchMeal(mealId = null, mealName = null, isDescriptionIncluded 
     }
 }
 
-async function searchByArea(area = 'Canadian') {
+async function searchByArea(area = null) {
     try {
-        const searchRequest = await foodSearch.searchMealsByArea(area);
-        _printMealsByType(searchRequest);
+        if (area) {
+            const searchRequest = await foodSearch.searchMealsByArea(area);
+            _printMealsByType(searchRequest, area);
+
+        } else {
+            console.log("Country of origin is required.");
+        }
 
     } catch(error) {
         console.log(error);

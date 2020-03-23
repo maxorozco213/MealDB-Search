@@ -54,7 +54,7 @@ async function searchMealsByArea(areaName) {
     try {
         searchURL += `a=${areaName}`;
         searchResponse = await superagent.get(searchURL);
-        return searchResponse;
+        return searchResponse.body;
 
     } catch (error) {
         console.log(error);

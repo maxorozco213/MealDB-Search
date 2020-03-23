@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "cli-color": "^2.0.0",
+    "columnify": "^1.5.4",
     "foodsearch": "file:../foodsearch",
     "inquirer": "^7.1.0",
     "terminal-link": "^2.1.1",

@@ -10,21 +10,19 @@ yargs
         // Puts the command together with some options and secondary commands
         builder: yargs => {
             return yargs
+                .usage('$0: Usage search <cmd> [options]')
                 .command({
                     command: 'area',
                     desc: "Search all meals in a given area or origin",
                     builder: yargs => {
                         return yargs
-                            .option('d', {
-                                alias: 'description',
-                                describe: "Include the description for each meal",
-                                boolean: false
-                            })
                     },
                     handler: argv => {
-                        app.searchByArea(argv.description);
+                        console.log()
+                        app.searchByArea(argv._.slice(2));
                     }
                 })
+                .usage('$0: Usage search <cmd> [options]')
                 .command({
                     command: 'ingredient',
                     desc: "Search all meals by its ingredients",
@@ -51,19 +49,11 @@ yargs
             app.searchFoodCategories(argv.description);
         }
     })
-    // .command({
-    //     command: 'list',
-    //     desc: "Get lists of "
-    // })
     .command({
         command: 'category',
         desc: "Search for a meal category by name [-n, -d]",
         builder: yargs => {
             return yargs
-                .option('n', {
-                    alias: "name",
-                    describe: "Search a category by name"
-                })
                 .option('d', {
                     alias: "description",
                     describe: "Include the instructions for the category preparation",
@@ -71,7 +61,7 @@ yargs
                 })
         },
         handler: argv => {
-            app.searchCategory(argv.name, argv.description);
+            app.searchCategory(argv._.slice(1), argv.description);
         }
     })
     .command({
