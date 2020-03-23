@@ -5,11 +5,41 @@ const app = require('./app');
 yargs
     .usage('$0: Usage <cmd> [options]')
     .command({
-        command: 'all',
-        desc: "Search the MealDB API for food categories [-d]",
+        command: 'search',
+        desc: "Search meal categories {default} or by [area] or main [ingredient]",
         // Puts the command together with some options and secondary commands
         builder: yargs => {
             return yargs
+                .command({
+                    command: 'area',
+                    desc: "Search all meals in a given area or origin",
+                    builder: yargs => {
+                        return yargs
+                            .option('d', {
+                                alias: 'description',
+                                describe: "Include the description for each meal",
+                                boolean: false
+                            })
+                    },
+                    handler: argv => {
+                        app.searchByArea(argv.description);
+                    }
+                })
+                .command({
+                    command: 'ingredient',
+                    desc: "Search all meals by its ingredients",
+                    builder: yargs => {
+                        return yargs
+                            .option('d', {
+                                alias: 'description',
+                                describe: "Include the description for each meal",
+                                boolean: false
+                            })
+                    },
+                    handler: argv => {
+                        app.searchByIngredient(argv.description);
+                    }
+                })
                 .option('d', {
                     alias: 'description',
                     describe: "Include the description for each category"
@@ -21,20 +51,24 @@ yargs
             app.searchFoodCategories(argv.description);
         }
     })
+    // .command({
+    //     command: 'list',
+    //     desc: "Get lists of "
+    // })
     .command({
         command: 'category',
         desc: "Search for a meal category by name [-n, -d]",
         builder: yargs => {
             return yargs
-            .option('n', {
-                alias: "name",
-                describe: "Search a category by name"
-            })
-            .option('d', {
-                alias: "description",
-                describe: "Include the instructions for the category preparation",
-                boolean: false
-            })
+                .option('n', {
+                    alias: "name",
+                    describe: "Search a category by name"
+                })
+                .option('d', {
+                    alias: "description",
+                    describe: "Include the instructions for the category preparation",
+                    boolean: false
+                })
         },
         handler: argv => {
             app.searchCategory(argv.name, argv.description);
@@ -45,18 +79,18 @@ yargs
         desc: "Search for a meal by ID or by name [-i, -n, -d]",
         builder: yargs => {
             return yargs
-            .option('i', {
-                alias: "identification",
-                describe: "Search a meal by ID"
-            })
-            .option('n', {
-                alias: "name",
-                describe: "Search a meal by name"
-            })
-            .option('d', {
-                alias: "description",
-                describe: "Include the instructions for the meal preparation"
-            })
+                .option('i', {
+                    alias: "identification",
+                    describe: "Search a meal by ID"
+                })
+                .option('n', {
+                    alias: "name",
+                    describe: "Search a meal by name"
+                })
+                .option('d', {
+                    alias: "description",
+                    describe: "Include the instructions for the meal preparation"
+                })
         },
         handler: argv => {
             app.searchMeal(argv.identification, argv.name, argv.description);

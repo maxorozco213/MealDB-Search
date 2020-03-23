@@ -6,46 +6,73 @@ async function searchAllCategories() {
     
     try {
         const searchResponse = await superagent.get(searchURL);
-        return searchResponse.body
+        return searchResponse.body;
         
     } catch (error) {
         console.log(error);
-        return error;
     }
 }
 
 async function searchByCategory(category) {
-    let searchURL = `${config.baseURL}/filter.php?c=`;
+    let searchURL = `${config.filterURL}`;
 
     try {
-        searchURL += `${category}`
-        const searchResponse = await superagent.get(searchURL)
+        searchURL += `c=${category}`;
+        const searchResponse = await superagent.get(searchURL);
         return searchResponse.body;
 
     } catch(error) {
         console.log(error);
-        return error;
     }
 }
 
 async function searchFoodDetails(id, name) {
-    let searchURL = `${config.baseURL}/lookup.php?i=`;
-    let searchResponse = ''
+    let searchURL = `${config.lookupURL}`;
+    let searchResponse = '';
 
     try {
-        if(id || (id && name)) {
-            searchURL += `${id}`
-            searchResponse = await superagent.get(searchURL)
+        if (id || (id && name)) {
+            searchURL += `i=${id}`;
+            searchResponse = await superagent.get(searchURL);
             
         } else {
-            searchURL += `${name}`
-            searchResponse = await superagent.get(searchURL)
+            searchURL += `s=${name}`;
+            searchResponse = await superagent.get(searchURL);
         }
-
         return searchResponse.body;
+
     } catch (error) {
         console.log(error);
-        return error;
+    }
+}
+
+// Search for meals by country of origin
+async function searchMealsByArea(areaName) {
+    let searchURL = `${config.filterURL}`;
+    let searchResponse = '';
+
+    try {
+        searchURL += `a=${areaName}`;
+        searchResponse = await superagent.get(searchURL);
+        return searchResponse;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// Search for meals by main ingredient
+async function searchMealsByIngredient(ingredient) {
+    let searchURL = `${config.filterURL}`;
+    let searchResponse = '';
+
+    try {
+        searchURL += `i=${ingredient}`;
+        searchResponse = await superagent.get(searchURL);
+        return searchResponse;
+
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -53,5 +80,7 @@ async function searchFoodDetails(id, name) {
 module.exports = {
     searchAllCategories,
     searchByCategory,
-    searchFoodDetails
+    searchFoodDetails,
+    searchMealsByIngredient,
+    searchMealsByArea
 }
