@@ -18,24 +18,16 @@ yargs
                         return yargs
                     },
                     handler: argv => {
-                        console.log()
                         app.searchByArea(argv._.slice(2));
                     }
                 })
                 .usage('$0: Usage search <cmd> [options]')
                 .command({
                     command: 'ingredient',
-                    desc: "Search all meals by its ingredients",
-                    builder: yargs => {
-                        return yargs
-                            .option('d', {
-                                alias: 'description',
-                                describe: "Include the description for each meal",
-                                boolean: false
-                            })
-                    },
+                    desc: "Search all meals by its main ingredients",
                     handler: argv => {
-                        app.searchByIngredient(argv.description);
+                        
+                        app.searchByIngredient(argv._.slice(2), argv.description);
                     }
                 })
                 .option('d', {

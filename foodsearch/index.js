@@ -69,7 +69,7 @@ async function searchMealsByIngredient(ingredient) {
     try {
         searchURL += `i=${ingredient}`;
         searchResponse = await superagent.get(searchURL);
-        return searchResponse;
+        return searchResponse.body;
 
     } catch (error) {
         console.log(error);

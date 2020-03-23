@@ -55,25 +55,22 @@ const _printMeals = (result, isDescriptionIncluded) => {
         
     } else {
         let data = {};
-
         result.categories.forEach(element => {
             data[clc.cyan(element.idCategory)] = clc.green(element.strCategory)
         })
 
         console.log(column(data, {columns: ["ID", "Name"]}));
-
     }
 }
 
-const _printMealsByType = (result, areaName) => {
+const _printMealsByType = (result, type) => {
     let data = {};
+    result.meals.forEach(element => {
+        data[clc.cyan(element.idMeal)] = clc.green(element.strMeal)
+    })
 
-        result.meals.forEach(element => {
-            data[clc.cyan(element.idMeal)] = clc.green(element.strMeal)
-        })
-
-        console.log(clc.bold(`All ${areaName} food`))
-        console.log(column(data, {columns: ["ID", "Name"]}));
+    console.log(clc.bold(`All ${type} food`))
+    console.log(column(data, {columns: ["ID", "Name"]}));
 }
 
 // Prompt the user to search a category
@@ -82,7 +79,7 @@ async function _searchCategoryPrompt() {
         {
             type: 'input',
             name: 'searchCategory',
-            message: "Which category do you want to search? (Enter 'n' to cancel)"
+            message: "Which category (Name) do you want to search? (Enter 'n' to cancel)"
         }
     ])
         .then(answer => {
@@ -125,8 +122,9 @@ async function searchFoodCategories(isDescriptionIncluded = false) {
 
 // Search the meals that are available in a category chosen by the user
 async function searchCategory(categoryName = null, isDescriptionIncluded = false) {
+    console.log(categoryName);
     try {
-        if (!categoryName) {
+        if (!categoryName || categoryName.length === 0) {
             _searchCategoryPrompt();
         } else {
             const searchRequest = await foodSearch.searchByCategory(categoryName);
@@ -160,8 +158,9 @@ async function searchMeal(mealId = null, mealName = null, isDescriptionIncluded 
 }
 
 async function searchByArea(area = null) {
+    console.log(area)
     try {
-        if (area) {
+        if (area !== null) {
             const searchRequest = await foodSearch.searchMealsByArea(area);
             _printMealsByType(searchRequest, area);
 
@@ -176,8 +175,12 @@ async function searchByArea(area = null) {
 
 async function searchByIngredient(ingredient = null) {
     try {
-        const searchRequest = await foodSearch.searchMealsByIngredient(ingredient);
-        _printMealsByType(searchRequest);
+        if (ingredient !== null) {
+            const searchRequest = await foodSearch.searchMealsByIngredient(ingredient);
+            _printMealsByType(searchRequest, ingredient);
+        } else {
+            console.log("Please enter the main ingredient.");
+        }
 
     } catch(error) {
         console.log(error);
