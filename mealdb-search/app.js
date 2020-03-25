@@ -54,12 +54,11 @@ const _printMeals = (result, isDescriptionIncluded) => {
         })
         
     } else {
-        let data = {};
-        result.categories.forEach(element => {
-            data[clc.cyan(element.idCategory)] = clc.green(element.strCategory)
+        result.meals.forEach(meal => {
+            console.log(clc.cyan(`ID: ${meal.idMeal}`));
+            console.log(clc.cyan(`Name: ${meal.strMeal}`));
+            console.log(clc.cyan(`Origin: ${meal.strArea}`));
         })
-
-        console.log(column(data, {columns: ["ID", "Name"]}));
     }
 }
 

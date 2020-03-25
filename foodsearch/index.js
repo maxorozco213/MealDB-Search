@@ -29,16 +29,18 @@ async function searchByCategory(category) {
 async function searchFoodDetails(id, name) {
     let searchURL = `${config.lookupURL}`;
     let searchResponse = '';
-
+    
     try {
         if (id || (id && name)) {
             searchURL += `i=${id}`;
+            console.log(searchURL)
             searchResponse = await superagent.get(searchURL);
             
         } else {
             searchURL += `s=${name}`;
             searchResponse = await superagent.get(searchURL);
         }
+
         return searchResponse.body;
 
     } catch (error) {
