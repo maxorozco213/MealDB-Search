@@ -32,7 +32,7 @@ To start use `git clone` then `npm install` in both */mealdb-search* and */foods
 - `node cli.js meal -i 52772 -d` </br>
   
   Output:</br>
-  > **ID:** 52772
+  > **ID:** 52772</br>
   > **Name:** Teriyaki Chicken Casserole</br>
   > **Origin:** Japanese</br>
   > **Youtube Tutorial:** https://www.youtube.com/watch?v=4aZr5hZXP_s</br>
