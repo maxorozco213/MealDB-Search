@@ -28,7 +28,6 @@ const _printCategories = (result, isDescriptionIncluded) => {
 };
 
 const _printMealsInCategory = (result) => {
-    
     let data = {};
 
     result.meals.forEach(element => {
@@ -121,7 +120,7 @@ async function searchFoodCategories(isDescriptionIncluded = false) {
 
 // Search the meals that are available in a category chosen by the user
 async function searchCategory(categoryName = null, isDescriptionIncluded = false) {
-    console.log(categoryName);
+    console.log(clc.bold(categoryName));
     try {
         if (!categoryName || categoryName.length === 0) {
             _searchCategoryPrompt();

@@ -33,7 +33,6 @@ async function searchFoodDetails(id, name) {
     try {
         if (id || (id && name)) {
             searchURL += `i=${id}`;
-            console.log(searchURL)
             searchResponse = await superagent.get(searchURL);
             
         } else {
