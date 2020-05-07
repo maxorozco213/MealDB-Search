@@ -2,30 +2,29 @@ const foodsearch = require('foodsearch');
 const express = require('express');
 const router = express.Router();
 
-router.get('/search', async (req, res) => {
+// router.post('/search', async (req, res) => {
 
     
-    try {
-        const results = await foodsearch.searchByCategory(req);
+//     try {
+//         const results = await foodsearch.searchByCategory(req);
 
-        res.json(results);
+//         res.json(results);
+//     } catch {
+//         console.log('error')
+//     }
+    
+//     console.log(results);
+// });
+
+router.post('/fetch', async function (req, res) {
+    try {
+        console.log(req.body);
+        res.send('hi');
     } catch {
-        console.log('error')
+        res.send('There was an error');
     }
     
-    console.log(results);
-});
-
-router.get('/fetch', async (req, res) => {
-    try {
-        const results = await foodsearch.searchMeal(req);
-
-        res.json(results);
-    } catch {
-        console.log('error')
-    }
     
-    console.log(results);
 });
 
 module.exports = router;
