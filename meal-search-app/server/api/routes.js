@@ -18,6 +18,7 @@ router.post('/search', async function (req, res) {
 
 router.post('/fetch', async (req, res) => {
     const { foodID } = req.body;
+    console.log(req.body);
 
     try {
         const response = await foodsearch.searchFoodDetails(foodID);
