@@ -25,7 +25,11 @@
             <div v-cloak class="container">
                 <div class="row">
                     <input v-model='foodCategory' placeholder="Type the name of a food category" class='form-control' />
-                    <button @click="fetchFood(foodCategory)" class='btn btn-primary'>test</button>
+                    <button @click="fetchFood(foodCategory)" class='btn btn-primary'>Submit</button>
+                </div>
+                <div class="row">
+                    <input v-model='food' placeholder="Type the name of a meal" class='form-control' />
+                    <button @click="fetchFood(food)" class='btn btn-primary'>Submit</button>
                 </div>
             </div>
         </div>

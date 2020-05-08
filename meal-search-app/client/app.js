@@ -6,12 +6,19 @@ const meals = new Vue({
         food: ''
     },
     methods: {
-        fetchFood: async function(test) {
-            const response = await axios.post("http://localhost:8000/api/fetch", {
-                test: test
+        fetchFood: async function(categoryName) {
+            const response = await axios.post("http://localhost:8000/api/search", {
+                categoryName: categoryName
             });
-            this.food = response.data;
-            console.log(this.food);
+            
+            console.log('response', response.data.meals);
+        },
+        fetchID: async function(foodID) {
+            const response = await axios.post("http://localhost:8000/api/fetch", {
+                foodID: foodID
+            })
+
+            console.log(response);
         }
     }
 })
