@@ -26,6 +26,7 @@ async function searchByCategory(category) {
     }
 }
 
+// TODO Get food by ID
 async function searchFoodDetails(id, name) {
     let searchURL = `${config.lookupURL}`;
     let searchResponse = '';
