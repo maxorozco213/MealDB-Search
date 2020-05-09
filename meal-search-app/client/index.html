@@ -28,10 +28,17 @@
                     <button @click="fetchFood(foodCategory)" class='btn btn-primary'>Submit</button>
                 </div>
                 <div class="row">
-                    <input v-model='food' placeholder="Type the name of a meal" class='form-control' />
+                    <input v-model='foodItem' placeholder="Type the name of a meal" class='form-control' />
                     <button @click="fetchID(food)" class='btn btn-primary'>Submit</button>
                 </div>
             </div>
+
+            <ul v-if="foodsList">
+                <li v-for="food in foodsList">
+                    {{food.idMeal}}
+                </li>
+                <span>hi</span>
+            </ul>
         </div>
 
         <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
