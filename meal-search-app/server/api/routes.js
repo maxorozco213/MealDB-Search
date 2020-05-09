@@ -8,7 +8,6 @@ router.post('/search', async function (req, res) {
     try {
         const response = await foodsearch.searchByCategory(category = categoryName);
 
-        console.log(response);
         res.json(response);
     } catch {
         res.send('There was an error searching foods');
@@ -19,19 +18,14 @@ router.post('/search', async function (req, res) {
 router.post('/fetch', async (req, res) => {
     const { foodID, foodName } = req.body;
     console.log(foodName);
-    try {
-        let response;
 
-        if (foodID && !foodName) {
-            response = await foodsearch.searchFoodDetails(foodID);
-        } else if (!foodID && foodName) {
-            response = await foodsearch.searchFoodDetails(id= null, foodName);
-        }
+    try {
+        const response = await foodsearch.searchFoodByName(foodName);
 
         console.log(response);
         res.json(response);
     } catch {
-        console.log('There was an error fetching the food ID')
+        console.log('There was an error fetching the meal')
     }
 });
 

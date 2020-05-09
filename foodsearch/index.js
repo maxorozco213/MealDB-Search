@@ -50,6 +50,22 @@ async function searchFoodDetails(id, name) {
     }
 }
 
+// Search a meal by name
+async function searchFoodByName(name) {
+    let searchURL = `${config.searchURL}`;
+
+    try{
+        searchURL += `s=${name}`;
+        searchResponse = await superagent.get(searchURL);
+
+    } catch(error) {
+        console.log("There was an error searchng by name");
+        console.log("Error message: ", error);
+    }
+
+    return searchResponse.body;
+}
+
 // Search for meals by country of origin
 async function searchMealsByArea(areaName) {
     let searchURL = `${config.filterURL}`;
@@ -86,5 +102,6 @@ module.exports = {
     searchByCategory,
     searchFoodDetails,
     searchMealsByIngredient,
-    searchMealsByArea
+    searchMealsByArea,
+    searchFoodByName
 }

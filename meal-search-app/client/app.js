@@ -16,13 +16,16 @@ const meals = new Vue({
             this.foodsList = response.data.meals;
             console.log('response', this.foodsList);
         },
-        fetchID: async function(foodID) {
+        fetchID: async function(foodName) {
             const response = await axios.post("http://localhost:8000/api/fetch", {
-                foodID: foodID
+                foodName: foodName
             })
 
             this.foodItem = response.data.meals;
-            console.log(this.foodItem[0]);
+            console.log(this.foodItem);
         }
     }
+    // computed: {
+
+    // }
 })
