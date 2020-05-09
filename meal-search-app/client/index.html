@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Meals App</title>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    </head>
+
+    <body>
+        <div id="food" v-cloak>
+            <div class="jumbotron jumbotron-fluid">
+                <!-- Application Title and tagline-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg">
+                            <h1 class="display-2">{{ appName }}</h1>
+                            <p class="lead">App to search for meals</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-cloak class="container">
+                <div class="row">
+                    <input v-model='foodCategory' placeholder="Type the name of a food category" class='form-control' />
+                    <button @click="fetchFood(foodCategory)" class='btn btn-primary'>Submit</button>
+                </div>
+                <div class="row">
+                    <input v-model='foodItem' placeholder="Type the name of a meal" class='form-control' />
+                    <button @click="fetchID(food)" class='btn btn-primary'>Submit</button>
+                </div>
+            </div>
+
+            <ul v-if="foodsList">
+                <li v-for="food in foodsList">
+                    {{food.idMeal}}
+                </li>
+                <span>hi</span>
+            </ul>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+    </body>
+</html>
