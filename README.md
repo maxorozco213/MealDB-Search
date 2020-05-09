@@ -46,3 +46,20 @@ To start use `git clone` then `npm install` in both */mealdb-search* and */foods
  - `i` (identification)
  - `n` (name)
  - `d` (description)
+
+<br />
+
+# Final Project Adaptation
+
+<p>Final project required that the project is given a UI using `Vue.js`. A Node server can be launched on port 8000. The Node server serves the Vue front end. This project implements search by category and search for food by name/ID from the CLI version. </p>
+
+<br />
+
+## Usage
+
+To start the Node server: <br />
+`cd /meal-search-app/server`<br />
+`node server.js`<br />
+
+To view the UI: <br />
+Go to a browser and enter `localhost:8000` into the URL bar <br />

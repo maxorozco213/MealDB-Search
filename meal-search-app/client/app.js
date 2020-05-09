@@ -2,7 +2,7 @@ const meals = new Vue({
     el: '#food',
     data: {
         appName: 'Meal Search',
-        foodCategory: '',
+        foodCategory: null,
         foodFetch: null,
         foodsList: null,
         foodItem: null
@@ -14,6 +14,7 @@ const meals = new Vue({
             });
             
             this.foodsList = response.data.meals;
+            this.foodItem = null;
             console.log('response', this.foodsList);
         },
         fetchID: async function(foodName) {
@@ -22,6 +23,7 @@ const meals = new Vue({
             })
 
             this.foodItem = response.data.meals;
+            this.foodsList = null;
             console.log(this.foodItem);
         }
     }

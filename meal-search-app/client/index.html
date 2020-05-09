@@ -41,6 +41,19 @@
                     <hr />
                 </li>
             </ul>
+
+            <ul v-if="foodItem" class="list-unstyled column" style="margin-left: 20%; margin-right: 20%;">
+                <li v-for="item in foodItem" class='column' style="margin-bottom: 1%;">
+                    <h2>Name: {{item.strMeal}}</h2>
+                    <h3>Category: {{item.strCategory}}</h3>
+                    <h3>Origin: {{item.strArea}}</h3>
+                    <h5>ID: {{item.idMeal}}</h5>
+                    <a v-if=item.strYoutube v-bind:href=item.strYoutube target='_blank'>See the YouTube tutorial</a>
+                    <p>{{item.strInstructions}}</p>
+                    <image v-bind:src=item.strMealThumb alt="Food pic" />
+                    <hr />
+                </li>
+            </ul>
         </div>
 
         <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
