@@ -29,6 +29,7 @@ async function searchByCategory(category) {
 // TODO Get food by ID
 async function searchFoodDetails(id, name) {
     let searchURL = `${config.lookupURL}`;
+    let nameURL = `${config.searchURL}`;
     let searchResponse = '';
     
     try {
@@ -37,8 +38,9 @@ async function searchFoodDetails(id, name) {
             searchResponse = await superagent.get(searchURL);
             
         } else {
-            searchURL += `s=${name}`;
-            searchResponse = await superagent.get(searchURL);
+            console.log("namURL", nameURL);
+            nameURL += `s=${name}`;
+            searchResponse = await superagent.get(nameURL);
         }
 
         return searchResponse.body;

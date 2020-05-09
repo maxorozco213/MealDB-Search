@@ -17,11 +17,16 @@ router.post('/search', async function (req, res) {
 });
 
 router.post('/fetch', async (req, res) => {
-    const { foodID } = req.body;
-    console.log(req.body);
-
+    const { foodID, foodName } = req.body;
+    console.log(foodName);
     try {
-        const response = await foodsearch.searchFoodDetails(foodID);
+        let response;
+
+        if (foodID && !foodName) {
+            response = await foodsearch.searchFoodDetails(foodID);
+        } else if (!foodID && foodName) {
+            response = await foodsearch.searchFoodDetails(id= null, foodName);
+        }
 
         console.log(response);
         res.json(response);

@@ -1,5 +1,6 @@
 {
     "baseURL": "https://www.themealdb.com/api/json/v1/1/",
     "filterURL": "https://www.themealdb.com/api/json/v1/1/filter.php?",
-    "lookupURL": "https://www.themealdb.com/api/json/v1/1/lookup.php?"
+    "lookupURL": "https://www.themealdb.com/api/json/v1/1/lookup.php?",
+    "searchURL": "https://www.themealdb.com/api/json/v1/1/search.php?"
 }

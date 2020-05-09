@@ -28,8 +28,8 @@
                     <button @click="fetchFood(foodCategory)" class='btn btn-primary'>Submit</button>
                 </div>
                 <div class="row">
-                    <input v-model='foodItem' placeholder="Type the name of a meal" class='form-control' />
-                    <button @click="fetchID(food)" class='btn btn-primary'>Submit</button>
+                    <input v-model='foodFetch' placeholder="Type the name of a meal" class='form-control' />
+                    <button @click="fetchID(foodFetch)" class='btn btn-primary'>Submit</button>
                 </div>
             </div>
 
@@ -37,7 +37,6 @@
                 <li v-for="food in foodsList">
                     {{food.idMeal}}
                 </li>
-                <span>hi</span>
             </ul>
         </div>
 
