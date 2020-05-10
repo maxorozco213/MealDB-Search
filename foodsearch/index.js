@@ -29,6 +29,7 @@ async function searchByCategory(category) {
 // TODO Get food by ID
 async function searchFoodDetails(id, name) {
     let searchURL = `${config.lookupURL}`;
+    let nameURL = `${config.searchURL}`;
     let searchResponse = '';
     
     try {
@@ -37,8 +38,9 @@ async function searchFoodDetails(id, name) {
             searchResponse = await superagent.get(searchURL);
             
         } else {
-            searchURL += `s=${name}`;
-            searchResponse = await superagent.get(searchURL);
+            console.log("namURL", nameURL);
+            nameURL += `s=${name}`;
+            searchResponse = await superagent.get(nameURL);
         }
 
         return searchResponse.body;
@@ -46,6 +48,22 @@ async function searchFoodDetails(id, name) {
     } catch (error) {
         console.log(error);
     }
+}
+
+// Search a meal by name
+async function searchFoodByName(name) {
+    let searchURL = `${config.searchURL}`;
+
+    try{
+        searchURL += `s=${name}`;
+        searchResponse = await superagent.get(searchURL);
+
+    } catch(error) {
+        console.log("There was an error searchng by name");
+        console.log("Error message: ", error);
+    }
+
+    return searchResponse.body;
 }
 
 // Search for meals by country of origin
@@ -84,5 +102,6 @@ module.exports = {
     searchByCategory,
     searchFoodDetails,
     searchMealsByIngredient,
-    searchMealsByArea
+    searchMealsByArea,
+    searchFoodByName
 }
