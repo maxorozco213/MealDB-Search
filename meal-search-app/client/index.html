@@ -33,24 +33,30 @@
                 </div>
             </div>
 
-            <ul v-if="foodsList" class="list-unstyled column" style="margin-left: 20%; margin-right: 20%;">
-                <li v-for="food in foodsList" class='column' style="margin-bottom: 1%;">
-                    <h2>Name: {{food.strMeal}}</h2>
-                    <h5>ID: {{food.idMeal}}</h5>
-                    <image v-bind:src=food.strMealThumb alt="Food pic" />
-                    <hr />
-                </li>
-            </ul>
+            <div style="margin-left: 30%; margin-right: 20%;">
+                <h1 v-if="foodsList" style="margin-bottom: 5%">
+                    {{numberOfResults}} results for search "{{foodCategory}}"
+                </h1>
+                <ul v-cloak v-if="foodsList" class="list-unstyled column" >
+                    <li v-for="food in foodsList" class='column' style="margin-bottom: 1%;">
+                        <h2>Name: {{food.strMeal}}</h2>
+                        <h5>ID: {{food.idMeal}}</h5>
+                        <img v-bind:src=food.strMealThumb alt="Food pic" />
+                        <hr />
+                    </li>
+                </ul>
+            </div>
 
-            <ul v-if="foodItem" class="list-unstyled column" style="margin-left: 20%; margin-right: 20%;">
+            <ul v-cloak v-if="foodItem" class="list-unstyled column" style="margin-left: 20%; margin-right: 20%;">
                 <li v-for="item in foodItem" class='column' style="margin-bottom: 1%;">
                     <h2>Name: {{item.strMeal}}</h2>
                     <h3>Category: {{item.strCategory}}</h3>
                     <h3>Origin: {{item.strArea}}</h3>
                     <h5>ID: {{item.idMeal}}</h5>
-                    <a v-if=item.strYoutube v-bind:href=item.strYoutube target='_blank'>See the YouTube tutorial</a>
+                    <a v-if=item.strYoutube v-bind:href=item.strYoutube target='_blank'>See the YouTube tutorial</a><br/>
+                    <a v-if=item.strSource v-bind:href=item.strSource target='_blank'>See the original source</a>
                     <p>{{item.strInstructions}}</p>
-                    <image v-bind:src=item.strMealThumb alt="Food pic" />
+                    <img v-bind:src=item.strMealThumb alt="Food pic" />
                     <hr />
                 </li>
             </ul>

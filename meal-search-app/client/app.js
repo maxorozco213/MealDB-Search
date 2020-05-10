@@ -5,7 +5,8 @@ const meals = new Vue({
         foodCategory: null,
         foodFetch: null,
         foodsList: null,
-        foodItem: null
+        foodItem: null,
+        selectedFood: []
     },
     methods: {
         fetchFood: async function(categoryName) {
@@ -20,14 +21,16 @@ const meals = new Vue({
         fetchID: async function(foodName) {
             const response = await axios.post("http://localhost:8000/api/fetch", {
                 foodName: foodName
-            })
+            });
 
             this.foodItem = response.data.meals;
             this.foodsList = null;
             console.log(this.foodItem);
         }
+    },
+    computed: {
+        numberOfResults: function () {
+            return this.foodsList.length;
+        }
     }
-    // computed: {
-
-    // }
 })
